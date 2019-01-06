@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get('/show', 'ShowController@index');
+Route::get('/', 'ShowController@index');
+Route::get('/ajax_table', 'ShowController@user_passwd');
 
 Auth::routes();
 

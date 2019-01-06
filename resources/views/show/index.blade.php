@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">今日の時間帯別攻撃</div>
+                <div class="card-header">過去24時間の時間帯別攻撃</div>
 
                 <div class="card-body">
                     <canvas id="myChart"></canvas>
@@ -67,6 +67,80 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">今年に入って最も良く使われたユーザー名</div>
+
+                <div class="card-body">
+
+
+                    <table border="1" style="border:1">
+                        <thead>
+                        <tr>
+                            <td>件数</td><td>ユーザー名</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($user_lists as $item)
+                            <tr>
+                                <td>{{ $item->cnt}}</td>
+                                <td>{{ $item->username }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">今年に入って最も良く使われたパスワード</div>
+
+                <div class="card-body">
+
+
+                    <table border="1" style="border:1">
+                        <thead>
+                        <tr>
+                            <td>件数</td><td>パスワード</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($pass_lists as $item)
+                            <tr>
+                                <td>{{ $item->cnt}}</td>
+                                <td>{{ $item->password }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">直近30件のパスワードリスト<span id="refreshing" style="color:red"></span></div>
+                <div class="card-body" id="recent_passlist">
+                    <img src="{{ asset('images/loading.gif') }}" style="width:100%" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- // 追加で使うJavaScript-->
@@ -93,18 +167,6 @@
                             @endforeach
                         ],
                     },
-                    /*
-                    {
-                        label: 'B店 来客数',
-                        data: [55, 45, 73, 75, 41, 45, 58],
-                        backgroundColor: "rgba(130,201,169,0.5)"
-                    },
-                    {
-                        label: 'C店 来客数',
-                        data: [33, 45, 62, 55, 31, 45, 38],
-                        backgroundColor: "rgba(255,183,76,0.5)"
-                    }
-                    */
                 ]
             },
         });
@@ -136,8 +198,13 @@
             },
         });
 
-
-
+        $("#recent_passlist").load("/ssh_attack_reporter/ajax_table");
+        setInterval(function(){
+            $("#refreshing").html("最新データ取得中");
+            $("#recent_passlist").load("/ssh_attack_reporter/ajax_table",function() {
+                $("#refreshing").html("");
+            });
+        },30000);
 
 
     };
