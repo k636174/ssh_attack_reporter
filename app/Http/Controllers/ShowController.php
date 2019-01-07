@@ -12,7 +12,7 @@ class ShowController extends Controller
    public function index(Request $request)
    {
 
-       date_default_timezone_set('Asia/Tokyo');
+        date_default_timezone_set('Asia/Tokyo');
         $wf_date = $request->input('fdate');
         $wt_date = $request->input('tdate');
 
@@ -23,22 +23,6 @@ class ShowController extends Controller
         $password_lists =  DB::table('auth')
             ->select(DB::raw('count(*) as cnt, username, password'))
             ->groupBy('username','password')
-            ->orderby('cnt','desc')
-            ->limit(50)
-            ->get();
-
-        // パスワードリスト（トップ50)
-        $pass_lists =  DB::table('auth')
-            ->select(DB::raw('count(*) as cnt, password'))
-            ->groupBy('password')
-            ->orderby('cnt','desc')
-            ->limit(50)
-            ->get();
-
-        // ユーザー名リスト（トップ50)
-        $user_lists =  DB::table('auth')
-            ->select(DB::raw('count(*) as cnt, username'))
-            ->groupBy('username')
             ->orderby('cnt','desc')
             ->limit(50)
             ->get();
@@ -66,9 +50,7 @@ class ShowController extends Controller
         return view('show.index', [
             'password_lists' => $password_lists,
             'datetime_total' => $datetime_total,
-            'day_total' => $day_total,
-            'pass_lists' => $pass_lists,
-            'user_lists' => $user_lists
+            'day_total' => $day_total
             ]);
     }
 
@@ -87,5 +69,39 @@ class ShowController extends Controller
         ]);
 
     }
+
+    public function password_list_year(Request $request)
+    {
+        // パスワードリスト（トップ50)
+        $pass_lists =  DB::table('auth')
+            ->select(DB::raw('count(*) as cnt, password'))
+            ->groupBy('password')
+            ->orderby('cnt','desc')
+            ->limit(30)
+            ->get();
+
+        return view('show.password_list_year', [
+            'pass_lists' => $pass_lists
+        ]);
+
+    }
+
+    public function user_list_year(Request $request)
+    {
+        // ユーザー名リスト（トップ50)
+        $user_lists =  DB::table('auth')
+            ->select(DB::raw('count(*) as cnt, username'))
+            ->groupBy('username')
+            ->orderby('cnt','desc')
+            ->limit(30)
+            ->get();
+
+        return view('show.user_list_year', [
+            'user_lists' => $user_lists
+        ]);
+
+    }
+
+
 
 }

@@ -17,6 +17,8 @@
 
 Route::get('/', 'ShowController@index');
 Route::get('/ajax_table', 'ShowController@user_passwd');
+Route::get('/password_list_year', 'ShowController@password_list_year');
+Route::get('/user_list_year', 'ShowController@user_list_year');
 
 Auth::routes();
 
