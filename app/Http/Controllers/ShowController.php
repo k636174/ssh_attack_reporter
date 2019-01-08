@@ -57,8 +57,10 @@ class ShowController extends Controller
     public function user_passwd(Request $request)
     {
         // ユーザー名とパスワードリスト（トップ50)
+        date_default_timezone_set('Asia/Tokyo');
         $password_lists =  DB::table('auth')
             ->select(DB::raw('count(*) as cnt, username, password,timestamp'))
+            ->where('timestamp','>',date("Y-m-d H:00:00",strtotime("-1 day")))
             ->groupBy('username','password','timestamp')
             ->orderby('timestamp','desc')
             ->limit(30)
