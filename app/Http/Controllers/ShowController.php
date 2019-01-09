@@ -19,14 +19,6 @@ class ShowController extends Controller
         if(empty($wf_date)) $wf_date = date("Y-m-d H:00:00",strtotime("-1 day"));
         if(empty($wt_date)) $wt_date =  date("Y-m-d H:00:00" );
 
-        // ユーザー名とパスワードリスト（トップ50)
-        $password_lists =  DB::table('auth')
-            ->select(DB::raw('count(*) as cnt, username, password'))
-            ->groupBy('username','password')
-            ->orderby('cnt','desc')
-            ->limit(50)
-            ->get();
-
         // 時間別攻撃件数
         $datetime_total =  DB::table('auth')
             ->select(DB::raw('count(*) as cnt, DATE_FORMAT(timestamp, \'%Y-%m-%d %H:00:00\') AS time'))
@@ -48,7 +40,6 @@ class ShowController extends Controller
 
         //var_dump($password_lists);
         return view('show.index', [
-            'password_lists' => $password_lists,
             'datetime_total' => $datetime_total,
             'day_total' => $day_total
             ]);
@@ -101,6 +92,24 @@ class ShowController extends Controller
         return view('show.user_list_year', [
             'user_lists' => $user_lists
         ]);
+
+    }
+
+    public function user_pass_list_year(Request $request)
+    {
+        // ユーザー名とパスワードリスト（トップ50)
+        $password_lists =  DB::table('auth')
+            ->select(DB::raw('count(*) as cnt, username, password'))
+            ->groupBy('username','password')
+            ->orderby('cnt','desc')
+            ->limit(50)
+            ->get();
+
+
+        return view('show.user_pass_list_year', [
+            'password_lists' => $password_lists
+        ]);
+
 
     }
 

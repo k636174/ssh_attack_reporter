@@ -63,24 +63,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">今年に入って最も良く使われたユーザー名とパスワードの組合せ</div>
-                <div class="card-body">
-                    <table border="1" style="border:1">
-                        <thead>
-                        <tr>
-                            <td>件数</td><td>ユーザー名</td><td>パスワード</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($password_lists as $password_list)
-                            <tr>
-                                <td>{{ $password_list->cnt}}</td>
-                                <td>{{ $password_list->username }}</td>
-                                <td>{{ $password_list->password }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-header">今年に入って最も良く使われたユーザー名とパスワードの組合せ<span id="refreshing4" style="color:red"></span></div>
+                <div class="card-body" id="user_pass_list_year">
+                    <img src="{{ asset('images/loading.gif') }}" style="width:100%" />
                 </div>
             </div>
         </div>
@@ -164,6 +149,14 @@
             $("#refreshing3").html("最新データ取得中");
             $("#user_list_year").load("/ssh_attack_reporter/user_list_year",function() {
                 $("#refreshing3").html("");
+            });
+        },30000);
+
+        $("#user_pass_list_year").load("/ssh_attack_reporter/user_pass_list_year");
+        setInterval(function(){
+            $("#refreshing4").html("最新データ取得中");
+            $("#user_pass_list_year").load("/ssh_attack_reporter/user_pass_list_year",function() {
+                $("#refreshing4").html("");
             });
         },30000);
 
