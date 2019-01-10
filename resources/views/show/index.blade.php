@@ -158,7 +158,7 @@
             $("#user_pass_list_year").load("/ssh_attack_reporter/user_pass_list_year",function() {
                 $("#refreshing4").html("");
             });
-        },30000);
+        },300000);
 
 
     };
