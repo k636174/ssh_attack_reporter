@@ -113,6 +113,20 @@ class ShowController extends Controller
 
     }
 
+    public function ajax_daily_attack(Request $request)
+    {
+        // 日別攻撃件数
+        $day_total =  DB::table('auth')
+            ->select(DB::raw('count(*) as cnt, DATE_FORMAT(timestamp, \'%Y-%m-%d\') AS day'))
+            ->groupBy('day')
+            ->orderby('timestamp','asc')
+            //->limit(24)
+            ->get();
+        foreach($day_total as $item){
+            echo $item->cnt.",";
+        }
+
+    }
 
 
 }

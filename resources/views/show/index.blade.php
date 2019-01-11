@@ -13,9 +13,10 @@
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">今年に入っての日別攻撃</div>
+                <div class="card-header">今年に入っての日別攻撃<span id="refreshing5" style="color:red"></span></div>
                 <div class="card-body">
                     <canvas id="myChart2"></canvas>
+                    <canvas id="myChart3"></canvas>
                 </div>
             </div>
         </div>
@@ -159,6 +160,35 @@
                 $("#refreshing4").html("");
             });
         },300000);
+
+        setInterval(function(){
+            $("#refreshing5").html("最新データ取得中");
+            $("#myChart3").load("/ssh_attack_reporter/ajax_daily_attack",function(data) {
+                console.log(data)
+                get_data = data;
+
+                var day_graph = document.getElementById("myChart2").getContext('2d');
+                var myChart = new Chart(day_graph, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            @foreach($day_total as $item)
+                                "{{$item->day}}",
+                            @endforeach
+                        ],
+                        datasets: [
+                            {
+                                label: '観測拠点A',
+                                backgroundColor: "rgba(230)",
+                                data: [
+                                    get_data
+                                ]
+                            }
+                        ]
+                    },
+                });
+            });
+        },10000);
 
 
     };
