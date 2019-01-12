@@ -71,7 +71,7 @@ class ShowController extends Controller
             ->select(DB::raw('count(*) as cnt, username, password'))
             ->groupBy('username','password')
             ->orderby('cnt','desc')
-            ->limit(50)
+            ->limit(30)
             ->get();
 
 

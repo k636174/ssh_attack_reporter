@@ -9,9 +9,9 @@
         <tbody>
         @foreach($password_lists as $item)
             <tr>
-                <td>{{ $item->cnt}}</td>
-                <td>{{ $item->username }}</td>
-                <td>{{ $item->password }}</td>
+                <td style="font-color:#59f5ff">{{ $item->cnt}}</td>
+                <td style="font-color:#59f5ff">{{ $item->username }}</td>
+                <td style="font-color:#59f5ff">{{ $item->password }}</td>
             </tr>
         @endforeach
         </tbody>
