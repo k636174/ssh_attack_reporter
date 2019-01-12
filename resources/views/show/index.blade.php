@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">過去24時間の時間帯別攻撃</div>
+                <div class="card-header">過去24時間の時間帯別攻撃<span id="refreshing6" class="refreshing" style="color:red"></span></div>
                 <div class="card-body">
                     <canvas id="myChart"></canvas>
                 </div>
@@ -77,29 +77,6 @@
 <script>
 
     window.onload = function(){
-        // グラフ描画
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [
-                    @foreach($datetime_total as $item)
-                        "{{$item->time}}",
-                    @endforeach
-                ],
-                datasets: [
-                    {
-                        label: '観測拠点A',
-                        backgroundColor: "rgba(130)",
-                        data: [
-                            @foreach($datetime_total as $item)
-                            {{$item->cnt}},
-                            @endforeach
-                        ],
-                    },
-                ]
-            },
-        });
 
         setInterval(function(){
             $(".refreshing").html("最新データ取得中");
@@ -110,7 +87,6 @@
             $("#user_pass_list_year").load("/ssh_attack_reporter/user_pass_list_year",function() { $("#refreshing4").html("");});
 
             // 今年に入っての日別攻撃件数グラフ
-            $("#myChart2").html("");
             $.ajax({
                 type: 'GET',
                 url: '/ssh_attack_reporter/ajax_daily_attack',
@@ -136,6 +112,35 @@
                     };
                     myChart2.update();
                     $("#refreshing5").html("");
+                }
+            });
+
+            // 過去24時間の攻撃集計グラフ
+            $.ajax({
+                type: 'GET',
+                url: '/ssh_attack_reporter/ajax_datetime_total',
+                dataType: "json",
+                success: function (result, textStatus, jqXHR)
+                {
+                    var  twenty_four = document.getElementById("myChart").getContext('2d');
+                    var myChart = new Chart(twenty_four,{
+                        type: "bar",
+                        data: {},
+                        option: {}
+                    });
+
+                    myChart.data = {
+                        labels: result.labels,
+                        datasets: [
+                            {
+                                label: "観測拠点1",
+                                backgroundColor : "rgba(230)",
+                                data : result.datasets.data
+                            }
+                        ]
+                    };
+                    myChart.update();
+                    $("#refreshing6").html("");
                 }
             });
 
