@@ -122,9 +122,30 @@ class ShowController extends Controller
             ->orderby('timestamp','asc')
             //->limit(24)
             ->get();
+
+        $tmp_arr_cnt = array();
+        $tmp_arr_day = array();
         foreach($day_total as $item){
-            echo $item->cnt.",";
+            //$tmp_arr_cnt[] = '"'.$item->cnt.'"';
+            $tmp_arr_cnt[] = $item->cnt;
+            $tmp_arr_day[] = $item->day;
         }
+
+        return response()->json(
+                array(
+                //'data' => array(
+                    //'labels' => array(implode($tmp_arr_day,",")),
+                    'labels' => $tmp_arr_day,
+                    'datasets' => array(
+                        'label' => 'hogehoge',
+                        'data' =>  $tmp_arr_cnt,
+                        'backgroundColor'=>'rgba(230)',
+                        //'data' =>  array(implode($tmp_arr_cnt,","))
+                        //'data' =>  implode($tmp_arr_cnt,",")
+                        //'data' =>  $tmp_arr_cnt
+                    )
+                )
+        );
 
     }
 

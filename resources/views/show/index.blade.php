@@ -16,7 +16,6 @@
                 <div class="card-header">今年に入っての日別攻撃<span id="refreshing5" style="color:red"></span></div>
                 <div class="card-body">
                     <canvas id="myChart2"></canvas>
-                    <canvas id="myChart3"></canvas>
                 </div>
             </div>
         </div>
@@ -102,33 +101,6 @@
             },
         });
 
-
-
-
-
-        var day_graph = document.getElementById("myChart2").getContext('2d');
-        var myChart = new Chart(day_graph, {
-            type: 'bar',
-            data: {
-                labels: [
-                    @foreach($day_total as $item)
-                        "{{$item->day}}",
-                    @endforeach
-                ],
-                datasets: [
-                    {
-                        label: '観測拠点A',
-                        backgroundColor: "rgba(230)",
-                        data: [
-                            @foreach($day_total as $item)
-                            {{$item->cnt}},
-                            @endforeach
-                        ]
-                    }
-                ]
-            },
-        });
-
         $("#recent_passlist").load("/ssh_attack_reporter/ajax_table");
         setInterval(function(){
             $("#refreshing1").html("最新データ取得中");
@@ -162,34 +134,37 @@
         },300000);
 
         setInterval(function(){
-            $("#refreshing5").html("最新データ取得中");
-            $("#myChart3").load("/ssh_attack_reporter/ajax_daily_attack",function(data) {
-                console.log(data)
-                get_data = data;
 
-                var day_graph = document.getElementById("myChart2").getContext('2d');
-                var myChart = new Chart(day_graph, {
-                    type: 'bar',
-                    data: {
-                        labels: [
-                            @foreach($day_total as $item)
-                                "{{$item->day}}",
-                            @endforeach
-                        ],
+            var day_graph2 = document.getElementById("myChart2").getContext('2d');
+            var myChart2 = new Chart(day_graph2,{
+                type: "bar",
+                data: {},
+                option: {}
+            });
+
+            $("#refreshing5").html("最新データ取得中");
+            $("#myChart2").html("");
+            $.ajax({
+                type: 'GET',
+                url: '/ssh_attack_reporter/ajax_daily_attack',
+                dataType: "json",
+                success: function (result, textStatus, jqXHR)
+                {
+                    myChart2.data = {
+                        labels: result.labels,
                         datasets: [
                             {
-                                label: '観測拠点A',
-                                backgroundColor: "rgba(230)",
-                                data: [
-                                    get_data
-                                ]
+                                label: "観測拠点1",
+                                backgroundColor : "rgba(230)",
+                                data : result.datasets.data
                             }
                         ]
-                    },
-                });
+                    };
+                    myChart2.update();
+                    $("#refreshing5").html("");
+                }
             });
-        },10000);
-
+        },30000);
 
     };
 </script>
