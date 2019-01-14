@@ -69,15 +69,15 @@
         setInterval(function(){
             $(".refreshing").html("最新データ取得中");
 
-            $("#recent_passlist").load("/ssh_attack_reporter/ajax_table",function() { $("#refreshing1").html("");});
-            $("#password_list_year").load("/ssh_attack_reporter/password_list_year",function() { $("#refreshing2").html("");});
-            $("#user_list_year").load("/ssh_attack_reporter/user_list_year",function() { $("#refreshing3").html("");});
-            $("#user_pass_list_year").load("/ssh_attack_reporter/user_pass_list_year",function() { $("#refreshing4").html("");});
+            $("#recent_passlist").load("/ajax_table",function() { $("#refreshing1").html("");});
+            $("#password_list_year").load("/password_list_year",function() { $("#refreshing2").html("");});
+            $("#user_list_year").load("/user_list_year",function() { $("#refreshing3").html("");});
+            $("#user_pass_list_year").load("/user_pass_list_year",function() { $("#refreshing4").html("");});
 
             // 今年に入っての日別攻撃件数グラフ
             $.ajax({
                 type: 'GET',
-                url: '/ssh_attack_reporter/ajax_daily_attack',
+                url: '/ajax_daily_attack',
                 dataType: "json",
                 success: function (result, textStatus, jqXHR)
                 {
@@ -106,7 +106,7 @@
             // 過去24時間の攻撃集計グラフ
             $.ajax({
                 type: 'GET',
-                url: '/ssh_attack_reporter/ajax_datetime_total',
+                url: '/ajax_datetime_total',
                 dataType: "json",
                 success: function (result, textStatus, jqXHR)
                 {
