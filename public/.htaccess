@@ -13,7 +13,6 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
-    #RewriteRule ^(.*)/$ /ssh_attack_reporter/$1 [L,R=301]
     RewriteBase /
 
     # Handle Front Controller...
