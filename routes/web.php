@@ -22,6 +22,7 @@ Route::get('/user_list_year', 'ShowController@user_list_year');
 Route::get('/user_pass_list_year', 'ShowController@user_pass_list_year');
 Route::get('/ajax_daily_attack', 'ShowController@ajax_daily_attack');
 Route::get('/ajax_datetime_total', 'ShowController@ajax_datetime_total');
+Route::get('/today_attack_cnt', 'ShowController@today_attack_cnt');
 
 Auth::routes();
 

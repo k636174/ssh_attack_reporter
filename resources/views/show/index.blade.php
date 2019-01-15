@@ -74,6 +74,7 @@
   	          $("#password_list_year").load("/password_list_year",function() { $("#refreshing2").html("");});
   	          $("#user_list_year").load("/user_list_year",function() { $("#refreshing3").html("");});
   	          $("#user_pass_list_year").load("/user_pass_list_year",function() { $("#refreshing4").html("");});
+              $("#today_attack_cnt").load("/today_attack_cnt");
 
            	  // 今年に入っての日別攻撃件数グラフ
            	  $.ajax({

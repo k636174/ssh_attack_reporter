@@ -155,5 +155,21 @@ class ShowController extends Controller
         );
     }
 
+    public function today_attack_cnt(){
+        date_default_timezone_set('Asia/Tokyo');
+
+
+        $result_data =  DB::table('auth')
+            ->select(DB::raw('count(*) as cnt'))
+            ->where('timestamp','>=',date("Y-m-d"))
+            ->get();
+
+        foreach($result_data as $item){
+            $tmp_arr_cnt[] = $item->cnt;
+        }
+
+            echo date("Y-m-d")."の辞書攻撃件数は：".$tmp_arr_cnt[0].'です';exit;
+    }
+
 
 }
