@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card" style="background-color:orange;">
+            <div class="card" style="">
                 <div class="card-header">過去24時間の時間帯別攻撃<span id="refreshing6" class="refreshing" style="color:red"></span></div>
                 <div class="card-body">
                     <canvas id="myChart"></canvas>
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card" style="background-color:orange;">
+            <div class="card" style="">
                 <div class="card-header">今年に入っての日別攻撃<span id="refreshing5" class="refreshing" style="color:red"></span></div>
                 <div class="card-body">
                     <canvas id="myChart2"></canvas>
@@ -27,7 +27,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card" style="background-color:orange;">
+            <div class="card" style="">
                 <div class="card-header">直近30件のパスワードリスト<span id="refreshing1" class="refreshing" style="color:red"></span></div>
                 <div class="card-body" id="recent_passlist">
                     <img src="{{ asset('images/loading.gif') }}" style="width:100%" />
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card" style="background-color:orange;">
+            <div class="card" style="">
                 <div class="card-header">今年に入って最も良く使われたユーザー名とパスワードの組合せ<span id="refreshing4" class="refreshing" style="color:red"></span></div>
                 <div class="card-body" id="user_pass_list_year">
                     <img src="{{ asset('images/loading.gif') }}" style="width:100%" />
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <div class="card" style="background-color:orange;">
+            <div class="card" style="">
                 <div class="card-header">今年に入って最も良く使われたユーザー名<span id="refreshing3" class="refreshing" style="color:red"></span></div>
                 <div class="card-body" id="user_list_year">
                     <img src="{{ asset('images/loading.gif') }}" style="width:100%" />
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <div class="card" style="background-color:orange;">
+            <div class="card" style="">
                 <div class="card-header">今年に入って最も良く使われたパスワード<span id="refreshing2" class="refreshing" style="color:red"></span></div>
                 <div class="card-body" id="password_list_year">
                     <img src="{{ asset('images/loading.gif') }}" style="width:100%" />
