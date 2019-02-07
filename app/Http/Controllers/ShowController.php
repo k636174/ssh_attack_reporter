@@ -171,5 +171,14 @@ class ShowController extends Controller
             echo date("Y-m-d")."の辞書攻撃件数は：".$tmp_arr_cnt[0].'です';exit;
     }
 
+    public function last_attack_datetime(){
+        date_default_timezone_set('Asia/Tokyo');
+        $result_data =  DB::table('auth')
+            ->select(DB::raw('timestamp'))
+            ->orderby('timestamp','desc')
+	    ->limit(1)
+            ->get();
+	echo $result_data[0]->timestamp;
+    }
 
 }
