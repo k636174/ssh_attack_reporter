@@ -68,7 +68,7 @@
     window.onload = function(){
 
     	// データ再取得関数
-  	  function refresh_data(){
+        function refresh_data(){
   	          $(".refreshing").html("最新データ取得中");
   	          $("#recent_passlist").load("/ajax_table",function() { $("#refreshing1").html("");});
   	          $("#password_list_year").load("/password_list_year",function() { $("#refreshing2").html("");});
@@ -135,15 +135,11 @@
 	            });
 	  	  }
 
-  	  refresh_data();
-	
-	// 30秒毎に再取得
+        refresh_data();
+
+        // 30秒毎に再取得
         setInterval(function(){
-
-	    refresh_data();
-
-
-
+            refresh_data();
         },60000);
 
     };
